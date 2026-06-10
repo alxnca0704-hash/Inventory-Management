@@ -174,7 +174,11 @@ p {
     align-items: center;
     background-color: transparent;
     padding: 0;
-    width: 300px;
+    width: 400px;
+    background-color: #e6e6e6;
+    padding: 10px;
+    border-radius: 25px;
+
 }
 
 .search-bar i {
@@ -231,6 +235,13 @@ p {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: var(--space-3);
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.1;
 }
 
 .card {

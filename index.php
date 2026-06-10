@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
 
-<div class="page-header" style="margin-bottom: var(--space-4);">
-    <h1>Dashboard Overview</h1>
+<div class="page-header" style="margin-bottom: var(--space-2);">
+    <h1 class="page-title">Dashboard Overview</h1>
     <p>Welcome back! Here's what's happening with your inventory today.</p>
 </div>
 
