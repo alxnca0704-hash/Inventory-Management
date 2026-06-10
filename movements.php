@@ -1,148 +1,90 @@
 <?php include 'includes/header.php'; ?>
 
-<div class="table-container">
-    <div class="table-header">
+<!-- Movements Log Container -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] card-shadow">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
         <div>
-            <h1>Movements Log</h1>
-            <p>A comprehensive history of all stock in/out transactions.</p>
+            <h1 class="font-headline-md text-headline-md text-on-surface">Movements Log</h1>
+            <p class="text-label-md text-on-surface-variant">Full history of inventory transactions</p>
         </div>
-        <div style="display: flex; gap: var(--space-2);">
-            <select class="form-control" style="width: auto; padding: 4px 8px;">
+        <div class="flex items-center gap-3">
+            <select class="bg-surface-container-low border-none rounded-xl px-4 py-2 text-label-md text-on-surface-variant focus:ring-2 focus:ring-primary transition-all uppercase tracking-wider font-bold text-[10px]">
                 <option>All Types</option>
                 <option>Purchases</option>
                 <option>Sales</option>
                 <option>Adjustments</option>
             </select>
-            <input type="date" class="form-control" style="width: auto; padding: 4px 8px;">
+            <input type="date" class="bg-surface-container-low border-none rounded-xl px-4 py-2 text-label-md text-on-surface-variant focus:ring-2 focus:ring-primary transition-all text-[10px]">
         </div>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Date / Time</th>
-                <th>Transaction ID</th>
-                <th>Product</th>
-                <th>Type</th>
-                <th>Quantity</th>
-                <th>User / Reason</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Oct 24, 2023</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">10:42 AM</div>
-                </td>
-                <td style="font-family: monospace; color: var(--text-secondary);">#TRX-8902</td>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Wireless Mouse M185</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">SKU-1001</div>
-                </td>
-                <td><span class="badge badge-success">Sale</span></td>
-                <td><span style="color: var(--danger); font-weight: 600;">-2</span></td>
-                <td>
-                    <div style="font-size: 14px;">Admin User</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">Order #ORD-509</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Oct 24, 2023</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">09:15 AM</div>
-                </td>
-                <td style="font-family: monospace; color: var(--text-secondary);">#TRX-8901</td>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Mechanical Keyboard K2</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">SKU-1002</div>
-                </td>
-                <td><span class="badge badge-info">Purchase</span></td>
-                <td><span style="color: var(--success); font-weight: 600;">+50</span></td>
-                <td>
-                    <div style="font-size: 14px;">System</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">PO #PO-102 received</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Oct 23, 2023</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">04:30 PM</div>
-                </td>
-                <td style="font-family: monospace; color: var(--text-secondary);">#TRX-8900</td>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">USB-C Hub Adapter</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">SKU-1008</div>
-                </td>
-                <td><span class="badge badge-warning">Adjustment</span></td>
-                <td><span style="color: var(--danger); font-weight: 600;">-1</span></td>
-                <td>
-                    <div style="font-size: 14px;">John Doe</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">Damaged during handling</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Oct 23, 2023</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">02:10 PM</div>
-                </td>
-                <td style="font-family: monospace; color: var(--text-secondary);">#TRX-8899</td>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">27" 4K Monitor</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">SKU-1004</div>
-                </td>
-                <td><span class="badge badge-success">Sale</span></td>
-                <td><span style="color: var(--danger); font-weight: 600;">-1</span></td>
-                <td>
-                    <div style="font-size: 14px;">Admin User</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">Order #ORD-508</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Oct 23, 2023</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">11:00 AM</div>
-                </td>
-                <td style="font-family: monospace; color: var(--text-secondary);">#TRX-8898</td>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Ergonomic Desk Chair</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">SKU-1011</div>
-                </td>
-                <td><span class="badge badge-info">Purchase</span></td>
-                <td><span style="color: var(--success); font-weight: 600;">+10</span></td>
-                <td>
-                    <div style="font-size: 14px;">System</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">PO #PO-101 received</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">Oct 22, 2023</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">09:00 AM</div>
-                </td>
-                <td style="font-family: monospace; color: var(--text-secondary);">#TRX-8897</td>
-                <td>
-                    <div style="font-weight: 500; color: var(--text-primary);">A4 Copy Paper</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">SKU-1003</div>
-                </td>
-                <td><span class="badge badge-warning">Adjustment</span></td>
-                <td><span style="color: var(--success); font-weight: 600;">+5</span></td>
-                <td>
-                    <div style="font-size: 14px;">Jane Smith</div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">Manual Inventory Count Adjustment</div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <!-- Pagination Mockup -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-3); padding-top: var(--space-3); box-shadow: 0 -1px 0 var(--bg-tertiary);">
-        <div style="color: var(--text-secondary); font-size: 14px;">Showing 1 to 6 of 84 entries</div>
-        <div style="display: flex; gap: var(--space-1);">
-            <button class="btn btn-secondary" disabled>Previous</button>
-            <button class="btn btn-primary">1</button>
-            <button class="btn btn-secondary">2</button>
-            <button class="btn btn-secondary">3</button>
-            <button class="btn btn-secondary">Next</button>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="text-label-md text-on-surface-variant border-b border-surface-container uppercase tracking-widest text-[10px]">
+                    <th class="pb-4 font-semibold">Date / Time</th>
+                    <th class="pb-4 font-semibold">Transaction ID</th>
+                    <th class="pb-4 font-semibold">Product</th>
+                    <th class="pb-4 font-semibold">Type</th>
+                    <th class="pb-4 font-semibold">Quantity</th>
+                    <th class="pb-4 font-semibold text-right">Initiated By</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-container">
+                <tr class="hover:bg-surface-bright transition-colors">
+                    <td class="py-5">
+                        <div class="font-medium text-on-surface">Oct 24, 2023</div>
+                        <div class="text-[11px] text-on-surface-variant font-data-mono">10:42 AM</div>
+                    </td>
+                    <td class="py-5 font-data-mono text-on-surface-variant">#TRX-8902</td>
+                    <td class="py-5">
+                        <div class="font-headline-sm text-on-surface">Wireless Mouse M185</div>
+                        <div class="text-[11px] text-on-surface-variant font-data-mono">SKU-1001</div>
+                    </td>
+                    <td class="py-5">
+                        <span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[11px] font-bold uppercase tracking-tight">Sale</span>
+                    </td>
+                    <td class="py-5 text-error font-bold">-2</td>
+                    <td class="py-5 text-right">
+                        <div class="text-body-md text-on-surface">Admin User</div>
+                        <div class="text-[11px] text-on-surface-variant">Order #ORD-509</div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-surface-bright transition-colors">
+                    <td class="py-5">
+                        <div class="font-medium text-on-surface">Oct 24, 2023</div>
+                        <div class="text-[11px] text-on-surface-variant font-data-mono">09:15 AM</div>
+                    </td>
+                    <td class="py-5 font-data-mono text-on-surface-variant">#TRX-8901</td>
+                    <td class="py-5">
+                        <div class="font-headline-sm text-on-surface">Mechanical Keyboard K2</div>
+                        <div class="text-[11px] text-on-surface-variant font-data-mono">SKU-1002</div>
+                    </td>
+                    <td class="py-5">
+                        <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-[11px] font-bold uppercase tracking-tight">Purchase</span>
+                    </td>
+                    <td class="py-5 text-secondary font-bold">+50</td>
+                    <td class="py-5 text-right">
+                        <div class="text-body-md text-on-surface">System</div>
+                        <div class="text-[11px] text-on-surface-variant">PO #PO-102 received</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Footer -->
+    <div class="mt-10 flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-surface-container">
+        <span class="font-label-md text-on-surface-variant text-[11px]">Showing 1 to 2 of 84 entries</span>
+        <div class="flex items-center gap-2">
+            <button class="w-9 h-9 flex items-center justify-center rounded-xl border border-surface-container-high text-on-surface-variant hover:bg-surface-container transition-colors disabled:opacity-50">
+                <span class="material-symbols-outlined text-lg">chevron_left</span>
+            </button>
+            <button class="w-9 h-9 flex items-center justify-center rounded-xl bg-primary text-on-primary font-bold text-[11px]">1</button>
+            <button class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-surface-container transition-colors font-bold text-[11px]">2</button>
+            <button class="w-9 h-9 flex items-center justify-center rounded-xl border border-surface-container-high text-on-surface-variant hover:bg-surface-container transition-colors">
+                <span class="material-symbols-outlined text-lg">chevron_right</span>
+            </button>
         </div>
     </div>
 </div>
