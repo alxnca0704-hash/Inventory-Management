@@ -1,17 +1,13 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Alerts Header Card -->
-<div class="bg-error-container text-on-error-container p-8 rounded-[2rem] relative overflow-hidden border border-error/10 mb-8 card-shadow">
-    <div class="relative z-10 max-w-2xl">
-        <h2 class="font-headline-md text-headline-md mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined">warning</span>
-            Critical Stock Alerts
-        </h2>
-        <p class="text-body-md opacity-80 mb-6">There are 14 products currently below safety stock levels. Immediate reordering is recommended to prevent out-of-stock scenarios.</p>
-        <button class="px-6 py-2.5 bg-error text-white text-label-md rounded-xl font-bold shadow-lg shadow-error/20 hover:opacity-90 transition-all uppercase tracking-wider text-[10px]">Generate PO Report</button>
-    </div>
-    <span class="material-symbols-outlined absolute -right-12 -bottom-12 text-[12rem] opacity-5 pointer-events-none">warning</span>
-</div>
+<?php 
+$icon = "warning";
+$title = "Critical Stock Alerts";
+$description = "There are 14 products currently below safety stock levels. Immediate reordering is recommended to prevent out-of-stock scenarios.";
+$buttonText = "Generate PO Report";
+include 'components/alert-banner.php'; 
+?>
 
 <!-- Alerts Table -->
 <div class="bg-surface-container-lowest p-8 rounded-3xl card-shadow">

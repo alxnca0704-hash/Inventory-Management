@@ -5,54 +5,47 @@
     <!-- Bento Stats Zone -->
     <div class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Total Value Card -->
-        <div class="bg-primary p-6 rounded-3xl flex flex-col justify-between h-44 text-white card-shadow">
-            <div class="flex justify-between items-start">
-                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-white">payments</span>
-                </div>
-                <span class="bg-secondary-fixed/20 text-secondary-fixed font-label-md px-2 py-1 rounded-lg flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider">
-                    <span class="material-symbols-outlined text-xs">trending_up</span> 12%
-                </span>
-            </div>
-            <div>
-                <p class="text-white/60 font-label-md uppercase tracking-wider text-[10px]">Inventory Value</p>
-                <h2 class="text-headline-lg font-headline-lg">$1,428,290</h2>
-            </div>
-        </div>
+        <?php 
+        $label = "Inventory Value";
+        $icon = "payments";
+        $value = "$1,428,290";
+        $bgClass = "bg-primary";
+        $textClass = "text-white";
+        $labelClass = "text-white/60";
+        $iconClass = "text-white";
+        $subtext = '<span class="bg-secondary-fixed/20 text-secondary-fixed font-label-md px-2 py-1 rounded-lg flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider"><span class="material-symbols-outlined text-xs">trending_up</span> 12%</span>';
+        include 'components/stat-card.php'; 
+        ?>
 
         <!-- Low Stock Alert Card -->
-        <div class="bg-secondary-container p-6 rounded-3xl flex flex-col justify-between h-44 text-on-secondary-container card-shadow">
-            <div class="flex justify-between items-start">
-                <div class="w-10 h-10 rounded-xl bg-on-secondary-container/10 flex items-center justify-center text-on-secondary-container">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span>
-                </div>
-                <span class="font-label-md bg-white/50 px-2 py-1 rounded-lg text-[10px] uppercase font-bold tracking-wider">Action Required</span>
-            </div>
-            <div>
-                <p class="font-label-md uppercase tracking-wider text-[10px] opacity-70">Low Stock SKUs</p>
-                <h2 class="text-headline-lg font-headline-lg">24 Items</h2>
-            </div>
-        </div>
+        <?php 
+        $label = "Low Stock SKUs";
+        $icon = "error";
+        $value = "24 Items";
+        $bgClass = "bg-secondary-container";
+        $textClass = "text-on-secondary-container";
+        $labelClass = "opacity-70";
+        $iconClass = "";
+        $subtext = '<span class="font-label-md bg-white/50 px-2 py-1 rounded-lg text-[10px] uppercase font-bold tracking-wider">Action Required</span>';
+        include 'components/stat-card.php'; 
+        ?>
 
         <!-- Warehouse Capacity Card -->
-        <div class="bg-surface-container-lowest p-6 rounded-3xl flex flex-col justify-between h-44 card-shadow">
-            <div class="flex justify-between items-start">
-                <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined">analytics</span>
-                </div>
-                <span class="font-label-md text-on-surface-variant text-[10px] uppercase font-bold tracking-wider">WH-Main</span>
-            </div>
-            <div class="space-y-2">
-                <p class="font-label-md uppercase tracking-wider text-[10px] text-on-surface-variant">Storage Load</p>
-                <div class="flex items-baseline gap-1">
-                    <h2 class="text-headline-lg font-headline-lg">78%</h2>
-                    <span class="text-on-surface-variant font-label-md text-sm">/ 100%</span>
-                </div>
-                <div class="h-1.5 bg-surface-container rounded-full overflow-hidden">
-                    <div class="bg-secondary h-full rounded-full" style="width: 78%"></div>
-                </div>
-            </div>
-        </div>
+        <?php 
+        $label = "Storage Load";
+        $icon = "analytics";
+        $value = "78%";
+        $bgClass = "bg-surface-container-lowest";
+        $textClass = "text-on-surface";
+        $labelClass = "text-on-surface-variant";
+        $iconClass = "text-primary";
+        $subtext = '<span class="font-label-md text-on-surface-variant text-[10px] uppercase font-bold tracking-wider">WH-Main</span>';
+        $extraContent = '
+            <div class="h-1.5 bg-surface-container rounded-full overflow-hidden">
+                <div class="bg-secondary h-full rounded-full" style="width: 78%"></div>
+            </div>';
+        include 'components/stat-card.php'; 
+        ?>
 
         <!-- Main Inventory Table -->
         <div class="col-span-12 md:col-span-3 bg-surface-container-lowest p-8 rounded-3xl card-shadow">
@@ -201,49 +194,45 @@
 </div>
 
 <!-- Adjust Stock Modal -->
-<div id="adjustStockModal" class="modal">
-    <div class="bg-white rounded-[2rem] w-full max-w-lg overflow-hidden shadow-2xl transition-transform transform">
-        <div class="p-8">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="font-headline-md text-headline-md text-on-surface">Quick Stock Adjustment</h2>
-                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low" onclick="closeModal('adjustStockModal')">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
+<?php 
+$id = "adjustStockModal";
+$title = "Quick Stock Adjustment";
+ob_start(); ?>
+<form class="space-y-6" onsubmit="event.preventDefault(); closeModal('adjustStockModal');">
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Select Product</label>
+        <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+            <option>Wireless Mouse M185 (SKU-1001)</option>
+            <option>Mechanical Keyboard K2 (SKU-1002)</option>
+        </select>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+            <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Adjustment Type</label>
+            <div class="flex gap-2">
+                <button type="button" class="flex-1 py-3 rounded-xl bg-secondary-container text-on-secondary-container font-bold text-label-md">Add</button>
+                <button type="button" class="flex-1 py-3 rounded-xl bg-surface-container-low text-on-surface-variant font-bold text-label-md">Subtract</button>
             </div>
-            <form class="space-y-6" onsubmit="event.preventDefault(); closeModal('adjustStockModal');">
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Select Product</label>
-                    <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
-                        <option>Wireless Mouse M185 (SKU-1001)</option>
-                        <option>Mechanical Keyboard K2 (SKU-1002)</option>
-                    </select>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Adjustment Type</label>
-                        <div class="flex gap-2">
-                            <button type="button" class="flex-1 py-3 rounded-xl bg-secondary-container text-on-secondary-container font-bold text-label-md">Add</button>
-                            <button type="button" class="flex-1 py-3 rounded-xl bg-surface-container-low text-on-surface-variant font-bold text-label-md">Subtract</button>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Quantity</label>
-                        <input type="number" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" value="1">
-                    </div>
-                </div>
-                
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Reason / Note</label>
-                    <textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. Inbound shipment, damaged goods, audit..."></textarea>
-                </div>
-                
-                <button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-full font-headline-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all mt-4">
-                    Confirm Adjustment
-                </button>
-            </form>
+        </div>
+        <div class="space-y-2">
+            <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Quantity</label>
+            <input type="number" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" value="1">
         </div>
     </div>
-</div>
+    
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider text-[10px] font-bold">Reason / Note</label>
+        <textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. Inbound shipment, damaged goods, audit..."></textarea>
+    </div>
+    
+    <button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-full font-headline-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all mt-4">
+        Confirm Adjustment
+    </button>
+</form>
+<?php 
+$content = ob_get_clean();
+include 'components/modal.php'; 
+?>
 
 <?php include 'includes/footer.php'; ?>

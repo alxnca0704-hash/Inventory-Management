@@ -5,73 +5,62 @@
     <!-- Bento Grid - Key Metrics -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter">
         <!-- Stat Card: Total Products -->
-        <div class="bg-primary-container text-on-primary-container p-4 rounded-xl card-shadow flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-label-md uppercase tracking-wider opacity-60">Total Products</span>
-                <span class="material-symbols-outlined text-secondary-fixed text-lg">inventory_2</span>
-            </div>
-            <div class="mt-1">
-                <h2 class="text-3xl font-headline-lg font-bold text-white">1,248</h2>
-                <div class="flex items-center gap-2">
-                    <span class="text-secondary-fixed text-xs font-label-md">+12</span>
-                    <span class="text-xs font-label-md opacity-40">this week</span>
-                </div>
-            </div>
-            <div class="mt-4 h-8 w-full">
-                <div class="flex items-end gap-1 h-full opacity-30">
-                    <div class="bg-white w-full h-1/2 rounded-sm"></div>
-                    <div class="bg-white w-full h-3/4 rounded-sm"></div>
-                    <div class="bg-white w-full h-2/3 rounded-sm"></div>
-                    <div class="bg-white w-full h-full rounded-sm"></div>
-                    <div class="bg-white w-full h-4/5 rounded-sm"></div>
-                </div>
-            </div>
-        </div>
+        <?php 
+        $label = "Total Products";
+        $icon = "inventory_2";
+        $value = "1,248";
+        $bgClass = "bg-primary-container";
+        $textClass = "text-on-primary-container";
+        $iconClass = "text-secondary-fixed";
+        $labelClass = "opacity-60";
+        $subtext = '<span class="text-secondary-fixed text-xs font-label-md">+12</span><span class="text-xs font-label-md opacity-40">this week</span>';
+        $extraContent = '
+            <div class="flex items-end gap-1 h-8 opacity-30">
+                <div class="bg-white w-full h-1/2 rounded-sm"></div>
+                <div class="bg-white w-full h-3/4 rounded-sm"></div>
+                <div class="bg-white w-full h-2/3 rounded-sm"></div>
+                <div class="bg-white w-full h-full rounded-sm"></div>
+                <div class="bg-white w-full h-4/5 rounded-sm"></div>
+            </div>';
+        include 'components/stat-card.php'; 
+        ?>
 
         <!-- Stat Card: Stock Value -->
-        <div class="bg-secondary text-on-secondary p-4 rounded-xl card-shadow flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-label-md uppercase tracking-wider opacity-80">Stock Value</span>
-                <span class="material-symbols-outlined text-lg">payments</span>
-            </div>
-            <div class="mt-1">
-                <h2 class="text-3xl font-headline-lg font-bold text-white">$45,231</h2>
-                <div class="flex items-center gap-2 mt-0.5">
-                    <span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-xs font-bold">+$2.4k</span>
-                    <span class="text-xs font-label-md opacity-80">this month</span>
-                </div>
-            </div>
-            <div class="mt-2 flex items-end gap-4">
-                <div class="flex-1">
-                    <div class="h-1 w-full bg-on-secondary/20 rounded-full overflow-hidden">
-                        <div class="h-full bg-white w-[65%]"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <?php 
+        $label = "Stock Value";
+        $icon = "payments";
+        $value = "$45,231";
+        $bgClass = "bg-secondary";
+        $textClass = "text-on-secondary";
+        $iconClass = "";
+        $labelClass = "opacity-80";
+        $subtext = '<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-xs font-bold">+$2.4k</span><span class="text-xs font-label-md opacity-80">this month</span>';
+        $extraContent = '
+            <div class="h-1 w-full bg-on-secondary/20 rounded-full overflow-hidden">
+                <div class="h-full bg-white w-[65%]"></div>
+            </div>';
+        include 'components/stat-card.php'; 
+        ?>
 
         <!-- Stat Card: Low Stock Alerts -->
-        <div class="bg-surface-container-lowest p-4 rounded-xl card-shadow flex flex-col justify-between border-b-4 border-error hover:-translate-y-1 transition-transform duration-300">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-label-md text-on-surface-variant uppercase tracking-wider">Low Stock</span>
-                <span class="material-symbols-outlined text-error text-lg">warning</span>
-            </div>
-            <div class="mt-1">
-                <h2 class="text-3xl font-headline-lg text-error font-bold">14</h2>
-                <div class="flex items-center gap-2 mt-0.5">
-                    <span class="text-on-surface-variant opacity-60 text-xs font-label-md">Requires attention</span>
-                </div>
-            </div>
-            <div class="mt-2">
-                <div class="flex gap-1 h-5 items-end">
-                    <div class="w-2 h-2 bg-error/20 rounded-full"></div>
-                    <div class="w-2 h-4 bg-error/40 rounded-full"></div>
-                    <div class="w-2 h-6 bg-error rounded-full"></div>
-                    <div class="w-2 h-3 bg-error/30 rounded-full"></div>
-                </div>
-            </div>
-        </div>
+        <?php 
+        $label = "Low Stock";
+        $icon = "warning";
+        $value = "14";
+        $bgClass = "bg-surface-container-lowest border-b-4 border-error";
+        $textClass = "text-on-surface";
+        $iconClass = "text-error";
+        $labelClass = "text-on-surface-variant";
+        $subtext = '<span class="text-on-surface-variant opacity-60 text-xs font-label-md">Requires attention</span>';
+        $extraContent = '
+            <div class="flex gap-1 h-5 items-end">
+                <div class="w-2 h-2 bg-error/20 rounded-full"></div>
+                <div class="w-2 h-4 bg-error/40 rounded-full"></div>
+                <div class="w-2 h-6 bg-error rounded-full"></div>
+                <div class="w-2 h-3 bg-error/30 rounded-full"></div>
+            </div>';
+        include 'components/stat-card.php'; 
+        ?>
 
         <!-- Top Categories Card (Taller) -->
         <div class="bg-surface-container-lowest p-6 rounded-xl card-shadow row-span-2">

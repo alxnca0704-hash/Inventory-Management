@@ -74,19 +74,14 @@
     </div>
 
     <!-- Pagination Footer -->
-    <div class="mt-10 flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-surface-container">
-        <span class="font-label-md text-on-surface-variant text-[11px]">Showing 1 to 2 of 84 entries</span>
-        <div class="flex items-center gap-2">
-            <button class="w-9 h-9 flex items-center justify-center rounded-xl border border-surface-container-high text-on-surface-variant hover:bg-surface-container transition-colors disabled:opacity-50">
-                <span class="material-symbols-outlined text-lg">chevron_left</span>
-            </button>
-            <button class="w-9 h-9 flex items-center justify-center rounded-xl bg-primary text-on-primary font-bold text-[11px]">1</button>
-            <button class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-surface-container transition-colors font-bold text-[11px]">2</button>
-            <button class="w-9 h-9 flex items-center justify-center rounded-xl border border-surface-container-high text-on-surface-variant hover:bg-surface-container transition-colors">
-                <span class="material-symbols-outlined text-lg">chevron_right</span>
-            </button>
-        </div>
-    </div>
+    <?php 
+    $start = 1;
+    $end = 2;
+    $total = 84;
+    $currentPage = 1;
+    $totalPages = 2;
+    include 'components/pagination.php'; 
+    ?>
 </div>
 
 <?php include 'includes/footer.php'; ?>

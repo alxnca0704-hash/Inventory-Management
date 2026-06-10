@@ -99,111 +99,103 @@
 </div>
 
 <!-- Add Product Modal -->
-<div id="addProductModal" class="modal">
-    <div class="bg-white rounded-[2rem] w-full max-w-lg overflow-hidden shadow-2xl transition-transform transform">
-        <div class="p-8">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="font-headline-md text-headline-md text-on-surface">Add New Product</h2>
-                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low" onclick="closeModal('addProductModal')">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <form class="space-y-6" onsubmit="event.preventDefault(); closeModal('addProductModal');">
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Product Name</label>
-                    <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. Wireless Mouse M185">
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">SKU</label>
-                        <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. SKU-1004">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Category</label>
-                        <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
-                            <option>Electronics</option>
-                            <option>Office Supplies</option>
-                            <option>Furniture</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Unit of Measure</label>
-                    <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
-                        <option>Piece</option>
-                        <option>Box</option>
-                        <option>Kilogram</option>
-                    </select>
-                </div>
-                
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Description</label>
-                    <textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all" placeholder="Brief product description..."></textarea>
-                </div>
-                
-                <div class="flex gap-4 pt-4">
-                    <button type="button" class="flex-1 py-4 rounded-full bg-surface-container-low text-on-surface-variant font-bold hover:bg-surface-container-high transition-all" onclick="closeModal('addProductModal')">Cancel</button>
-                    <button type="submit" class="flex-1 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Save Product</button>
-                </div>
-            </form>
+<?php 
+$id = "addProductModal";
+$title = "Add New Product";
+ob_start(); ?>
+<form class="space-y-6" onsubmit="event.preventDefault(); closeModal('addProductModal');">
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Product Name</label>
+        <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. Wireless Mouse M185">
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+            <label class="font-label-md text-on-surface-variant uppercase tracking-wider">SKU</label>
+            <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. SKU-1004">
+        </div>
+        <div class="space-y-2">
+            <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Category</label>
+            <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                <option>Electronics</option>
+                <option>Office Supplies</option>
+                <option>Furniture</option>
+            </select>
         </div>
     </div>
-</div>
+    
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Unit of Measure</label>
+        <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+            <option>Piece</option>
+            <option>Box</option>
+            <option>Kilogram</option>
+        </select>
+    </div>
+    
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Description</label>
+        <textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all" placeholder="Brief product description..."></textarea>
+    </div>
+    
+    <div class="flex gap-4 pt-4">
+        <button type="button" class="flex-1 py-4 rounded-full bg-surface-container-low text-on-surface-variant font-bold hover:bg-surface-container-high transition-all" onclick="closeModal('addProductModal')">Cancel</button>
+        <button type="submit" class="flex-1 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Save Product</button>
+    </div>
+</form>
+<?php 
+$content = ob_get_clean();
+include 'components/modal.php'; 
+?>
 
 <!-- Edit Product Modal -->
-<div id="editProductModal" class="modal">
-    <div class="bg-white rounded-[2rem] w-full max-w-lg overflow-hidden shadow-2xl transition-transform transform">
-        <div class="p-8">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="font-headline-md text-headline-md text-on-surface">Edit Product</h2>
-                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low" onclick="closeModal('editProductModal')">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <form class="space-y-6" onsubmit="event.preventDefault(); closeModal('editProductModal');">
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Product Name</label>
-                    <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" value="Wireless Mouse M185">
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">SKU</label>
-                        <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" value="SKU-1001">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Category</label>
-                        <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
-                            <option selected>Electronics</option>
-                            <option>Office Supplies</option>
-                            <option>Furniture</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Unit of Measure</label>
-                    <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
-                        <option selected>Piece</option>
-                        <option>Box</option>
-                        <option>Kilogram</option>
-                    </select>
-                </div>
-                
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Description</label>
-                    <textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all">Ergonomic 2.4GHz wireless mouse</textarea>
-                </div>
-                
-                <div class="flex gap-4 pt-4">
-                    <button type="button" class="flex-1 py-4 rounded-full bg-surface-container-low text-on-surface-variant font-bold hover:bg-surface-container-high transition-all" onclick="closeModal('editProductModal')">Cancel</button>
-                    <button type="submit" class="flex-1 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Update Product</button>
-                </div>
-            </form>
+<?php 
+$id = "editProductModal";
+$title = "Edit Product";
+ob_start(); ?>
+<form class="space-y-6" onsubmit="event.preventDefault(); closeModal('editProductModal');">
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Product Name</label>
+        <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" value="Wireless Mouse M185">
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+            <label class="font-label-md text-on-surface-variant uppercase tracking-wider">SKU</label>
+            <input type="text" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all" value="SKU-1001">
+        </div>
+        <div class="space-y-2">
+            <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Category</label>
+            <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                <option selected>Electronics</option>
+                <option>Office Supplies</option>
+                <option>Furniture</option>
+            </select>
         </div>
     </div>
-</div>
+    
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Unit of Measure</label>
+        <select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+            <option selected>Piece</option>
+            <option>Box</option>
+            <option>Kilogram</option>
+        </select>
+    </div>
+    
+    <div class="space-y-2">
+        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Description</label>
+        <textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all">Ergonomic 2.4GHz wireless mouse</textarea>
+    </div>
+    
+    <div class="flex gap-4 pt-4">
+        <button type="button" class="flex-1 py-4 rounded-full bg-surface-container-low text-on-surface-variant font-bold hover:bg-surface-container-high transition-all" onclick="closeModal('editProductModal')">Cancel</button>
+        <button type="submit" class="flex-1 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Update Product</button>
+    </div>
+</form>
+<?php 
+$content = ob_get_clean();
+include 'components/modal.php'; 
+?>
 
 <?php include 'includes/footer.php'; ?>
