@@ -1,0 +1,534 @@
+:root {
+    /* Notion-like Light Mode Palette */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f7f5;
+    /* Sidebar background in Notion */
+    --bg-tertiary: #f1f1ef;
+    /* Hover state background */
+    --text-primary: #37352f;
+    --text-secondary: #9b9a97;
+    /* Subdued text */
+
+    /* Muted, professional accents (no neon) */
+    --accent-primary: #2383e2;
+    /* Blue */
+    --success: #0f7b6c;
+    /* Green */
+    --warning: #d9730d;
+    /* Orange/Yellow */
+    --danger: #e03e3e;
+    /* Red */
+
+    --sidebar-width: 240px;
+    /* 30 * 8px */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
+
+    /* 8px grid system */
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 40px;
+    --space-6: 48px;
+
+    /* Shadows instead of borders for components */
+    --shadow-card: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px;
+    --shadow-modal: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 5px 15px;
+    --shadow-hover: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 4px 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: var(--space-1);
+}
+
+h1 {
+    font-size: 32px;
+    /* 4 * 8px */
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 24px;
+    /* 3 * 8px */
+    letter-spacing: -0.01em;
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    /* 2 * 8px */
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-secondary);
+    /* No border color, completely flat in notion until hover usually, but keeping it flat here */
+    padding: var(--space-2) 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 0 var(--space-2) var(--space-3);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.sidebar-header i {
+    color: var(--text-primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 var(--space-1);
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    background-color: var(--bg-tertiary);
+}
+
+.nav-links li a i {
+    font-size: 16px;
+    color: var(--text-secondary);
+    width: 24px;
+    text-align: center;
+}
+
+.nav-links li a:hover i,
+.nav-links li a.active i {
+    color: var(--text-primary);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: var(--space-4) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    background-color: var(--bg-primary);
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--space-2);
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    padding: 0;
+    width: 300px;
+}
+
+.search-bar i {
+    color: var(--text-secondary);
+    margin-right: var(--space-1);
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-secondary);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.notifications i {
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-tertiary);
+    border-radius: 60px;
+    /* Notion uses slightly rounded squares for avatars */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cards & Widgets */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3);
+}
+
+.card {
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    /* 8px grid */
+    padding: var(--space-2) var(--space-3);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    transition: box-shadow 0.2s ease;
+    /* Removed all borders as requested */
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.icon-blue {
+    color: var(--accent-primary);
+}
+
+.icon-green {
+    color: var(--success);
+}
+
+.icon-red {
+    color: var(--danger);
+}
+
+.icon-yellow {
+    color: var(--warning);
+}
+
+.card-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.card-title {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: var(--space-1);
+}
+
+/* Tables */
+.table-container {
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    padding: var(--space-3);
+    box-shadow: var(--shadow-card);
+    /* Shadow instead of border */
+    overflow-x: auto;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+}
+
+/* Buttons */
+.btn {
+    padding: var(--space-1) var(--space-2);
+    border-radius: 4px;
+    border: none;
+    /* No borders for buttons */
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    font-family: var(--font-family);
+    text-decoration: none;
+    box-shadow: none;
+    /* No shadow for buttons, as requested */
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1a6ab8;
+    /* Darker blue */
+}
+
+.btn-secondary {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: #e5e5e5;
+}
+
+.btn-danger {
+    background-color: #fce8e8;
+    color: var(--danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: var(--space-2) var(--space-1);
+    text-align: left;
+    border-bottom: 1px solid var(--bg-tertiary);
+    /* Keep a very faint line for table rows to separate them */
+}
+
+th {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
+}
+
+tr:hover td {
+    background-color: rgba(15, 15, 15, 0.02);
+}
+
+/* Badges - Notion style (subtle pastel backgrounds, matching text) */
+.badge {
+    padding: 2px 6px;
+    /* 8px total height impact */
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.badge-success {
+    background-color: #edf3ec;
+    color: var(--success);
+}
+
+.badge-warning {
+    background-color: #fbf3db;
+    color: var(--warning);
+}
+
+.badge-danger {
+    background-color: #fce8e8;
+    color: var(--danger);
+}
+
+.badge-info {
+    background-color: #e8f3fa;
+    color: var(--accent-primary);
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 15, 15, 0.4);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    padding: var(--space-4);
+    width: 100%;
+    max-width: 480px;
+    box-shadow: var(--shadow-modal);
+    position: relative;
+    animation: modalFadeIn 0.2s ease forwards;
+    /* No borders */
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-modal:hover {
+    background-color: var(--bg-tertiary);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: var(--space-3);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-1);
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-control {
+    width: 100%;
+    padding: var(--space-1) var(--space-2);
+    background-color: rgba(15, 15, 15, 0.02);
+    border: none;
+    /* No border for inputs in Notion */
+    box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset;
+    /* Subtle inset shadow instead of border */
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-control:focus {
+    box-shadow: rgba(35, 131, 226, 0.5) 0px 0px 0px 2px inset;
+    /* Blue glow */
+    background-color: var(--bg-primary);
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2337352f'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: var(--space-4);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+}
