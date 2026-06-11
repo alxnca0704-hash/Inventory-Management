@@ -96,7 +96,19 @@ try {
                                 <span class="px-3 py-1 bg-surface-container-high rounded-full font-label-md text-on-surface"><?= htmlspecialchars($product['category']) ?></span>
                             </td>
                             <td class="px-6 py-5 text-on-surface-variant"><?= htmlspecialchars($product['unit_of_measure']) ?></td>
-                            <td class="px-6 py-5 font-data-mono text-on-surface-variant"><?= htmlspecialchars($product['quantity']) ?></td>
+                            <td class="px-6 py-5 text-center">
+                                <div class="inline-flex flex-col items-center">
+                                    <span class="font-headline-sm <?= $product['quantity'] < 10 ? 'text-error' : 'text-secondary' ?>"><?= htmlspecialchars($product['quantity']) ?></span>
+                                    <div class="w-20 h-1.5 bg-surface-container rounded-full mt-2 overflow-hidden">
+                                        <?php 
+                                            $qty = (int)$product['quantity'];
+                                            $perc = min(100, ($qty / 100) * 100);
+                                            $color = $qty < 10 ? 'bg-error' : ($qty < 30 ? 'bg-amber-500' : 'bg-secondary');
+                                        ?>
+                                        <div class="h-full <?= $color ?> transition-all duration-500" style="width: <?= $perc ?>%"></div>
+                                    </div>
+                                </div>
+                            </td>
                             <td class="px-6 py-5">
                                 <span class="px-3 py-1  font-label-md text-primary">
                                     <span class="inline-block w-2 h-2 rounded-full mr-1 <?= ($product['status'] ?? 'Active') === 'Active' ? 'bg-secondary-fixed' : 'bg-error' ?>"></span>
@@ -119,6 +131,64 @@ try {
                 <?php endif; ?>
             </tbody>
         </table>
+    </div>
+    <!-- Pagination -->
+    <div class="flex flex-col sm:flex-row justify-between items-center px-6 py-4 bg-white text-on-surface font-label-md gap-4 border-t border-surface-container">
+        <div class="text-on-surface-variant">
+            Showing <span class="text-on-surface font-bold">1</span> to <span class="text-on-surface font-bold">10</span> of <span class="text-on-surface font-bold">1000</span> entries
+        </div>
+        <div class="flex items-center gap-1">
+            <button class="w-9 h-9 flex items-center justify-center rounded-lg bg-black text-white hover:bg-black/80 transition-all active:scale-90 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+            </button>
+            <button class="w-9 h-9 flex items-center justify-center rounded-lg bg-surface-container-highest text-on-surface font-bold shadow-sm">1</button>
+            <button class="w-9 h-9 flex items-center justify-center rounded-lg bg-black text-white hover:bg-black/80 transition-all active:scale-90 shadow-sm">2</button>
+            <button class="w-9 h-9 flex items-center justify-center rounded-lg bg-black text-white hover:bg-black/80 transition-all active:scale-90 shadow-sm">3</button>
+            <span class="px-2 text-on-surface-variant">...</span>
+            <button class="w-9 h-9 flex items-center justify-center rounded-lg bg-black text-white hover:bg-black/80 transition-all active:scale-90 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Secondary Insights Area (Bento Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+    <!-- Low Stock Card -->
+    <div onclick="window.location='alerts.php'" class="p-6 bg-error-container text-on-error-container rounded-3xl shadow-sm flex flex-col justify-between group cursor-pointer transition-transform hover:-translate-y-1">
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <span class="material-symbols-outlined text-[32px]">error_outline</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </div>
+            <h3 class="font-headline-md mb-1">Critical Alerts</h3>
+            <p class="font-body-md opacity-80">14 products are currently below safety stock levels.</p>
+        </div>
+        <div class="mt-6 font-label-md uppercase tracking-widest font-bold">View Inventory Alerts</div>
+    </div>
+    <!-- Categories Insight -->
+    <div onclick="window.location='movements.php'" class="p-6 bg-surface-container-highest rounded-3xl shadow-sm flex flex-col justify-between group cursor-pointer transition-transform hover:-translate-y-1">
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <span class="material-symbols-outlined text-[32px]">insights</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </div>
+            <h3 class="font-headline-md mb-1">Top Movers</h3>
+            <p class="font-body-md opacity-80">Electronics contributed to 45% of this week's total movement.</p>
+        </div>
+        <div class="mt-6 font-label-md uppercase tracking-widest font-bold">Full Categories Analytics</div>
+    </div>
+    <!-- Quick Export Card -->
+    <div class="p-6 bg-secondary-container text-on-secondary-container rounded-3xl shadow-sm flex flex-col justify-between group cursor-pointer transition-transform hover:-translate-y-1">
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <span class="material-symbols-outlined text-[32px]">file_download</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </div>
+            <h3 class="font-headline-md mb-1">Reports</h3>
+            <p class="font-body-md opacity-80">Download the current catalog status for Q3 auditing.</p>
+        </div>
+        <div class="mt-6 font-label-md uppercase tracking-widest font-bold">Export .CSV / .PDF</div>
     </div>
 </div>
 
