@@ -98,8 +98,8 @@ try {
                             <td class="px-6 py-5 text-on-surface-variant"><?= htmlspecialchars($product['unit_of_measure']) ?></td>
                             <td class="px-6 py-5 font-data-mono text-on-surface-variant"><?= htmlspecialchars($product['quantity']) ?></td>
                             <td class="px-6 py-5">
-                                <span class="px-3 py-1 bg-surface-container-high rounded-full font-label-md text-on-surface">
-                                    <span class="inline-block w-2 h-2 rounded-full mr-1 <?= ($product['status'] ?? 'Active') === 'Active' ? 'bg-primary' : 'bg-error' ?>"></span>
+                                <span class="px-3 py-1  font-label-md text-primary">
+                                    <span class="inline-block w-2 h-2 rounded-full mr-1 <?= ($product['status'] ?? 'Active') === 'Active' ? 'bg-secondary-fixed' : 'bg-error' ?>"></span>
                                     <?= htmlspecialchars($product['status'] ?? 'Active') ?>
                                 </span>
                             </td>
