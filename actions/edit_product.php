@@ -8,12 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category = $_POST['category'] ?? '';
     $uom = $_POST['uom'] ?? '';
     $quantity = $_POST['quantity'] ?? 0;
+    $status = $_POST['status'] ?? 'Active';
     $description = $_POST['description'] ?? '';
 
     if (!empty($id) && !empty($name) && !empty($sku) && !empty($category) && !empty($uom)) {
-        $stmt = $pdo->prepare('UPDATE products SET name = ?, sku = ?, category = ?, unit_of_measure = ?, quantity = ?, description = ? WHERE id = ?');
-        $stmt->execute([$name, $sku, $category, $uom, $quantity, $description, $id]);
-        
+        $stmt = $pdo->prepare('UPDATE products SET name = ?, sku = ?, category = ?, unit_of_measure = ?, quantity = ?, status = ?, description = ? WHERE id = ?');
+        $stmt->execute([$name, $sku, $category, $uom, $quantity, $status, $description, $id]);
+
         // Redirect back with success flag
         header('Location: ../products.php?success=edited');
         exit;

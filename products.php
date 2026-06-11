@@ -2,9 +2,24 @@
 include 'includes/header.php';
 require_once 'includes/config.php';
 
-// Fetch products
+// Fetch products with optional filters
 try {
-    $stmt = $pdo->query('SELECT * FROM products ORDER BY created_at DESC');
+    $sql = 'SELECT * FROM products WHERE 1=1';
+    $params = [];
+
+    if (!empty($_GET['category']) && $_GET['category'] !== 'All') {
+        $sql .= ' AND category = ?';
+        $params[] = $_GET['category'];
+    }
+
+    if (!empty($_GET['status']) && $_GET['status'] !== 'All') {
+        $sql .= ' AND status = ?';
+        $params[] = $_GET['status'];
+    }
+
+    $sql .= ' ORDER BY created_at DESC';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
     $products = $stmt->fetchAll();
 } catch (\PDOException $e) {
     $products = [];
@@ -13,19 +28,29 @@ try {
 
 <!-- Action & Filter Bar -->
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-    <div class="flex flex-wrap items-center gap-3">
+    <form method="GET" action="products.php" class="flex flex-wrap items-center gap-3">
         <!-- Filters -->
-        <button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest card-shadow rounded-xl font-label-md text-on-surface-variant hover:bg-surface-container-high transition-all">
-            <span class="material-symbols-outlined text-[18px]">category</span>
-            Category: All
-            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-        </button>
-        <button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest card-shadow rounded-xl font-label-md text-on-surface-variant hover:bg-surface-container-high transition-all">
-            <span class="material-symbols-outlined text-[18px]">filter_list</span>
-            Status: All
-            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-        </button>
-    </div>
+        <div class="relative flex items-center bg-surface-container-lowest card-shadow rounded-xl px-2 hover:bg-surface-container-high transition-all">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant ml-2">category</span>
+            <select name="category" onchange="this.form.submit()" class="bg-transparent border-none font-label-md text-on-surface-variant focus:ring-0 cursor-pointer py-2 pl-2 pr-8 appearance-none">
+                <option value="All" <?= (($_GET['category'] ?? '') === 'All' || empty($_GET['category'])) ? 'selected' : '' ?>>Category: All</option>
+                <option value="Electronics" <?= ($_GET['category'] ?? '') === 'Electronics' ? 'selected' : '' ?>>Electronics</option>
+                <option value="Office Supplies" <?= ($_GET['category'] ?? '') === 'Office Supplies' ? 'selected' : '' ?>>Office Supplies</option>
+                <option value="Furniture" <?= ($_GET['category'] ?? '') === 'Furniture' ? 'selected' : '' ?>>Furniture</option>
+            </select>
+
+        </div>
+        <div class="relative flex items-center bg-surface-container-lowest card-shadow rounded-xl px-2 hover:bg-surface-container-high transition-all">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant ml-2">filter_list</span>
+            <select name="status" onchange="this.form.submit()" class="bg-transparent border-none font-label-md text-on-surface-variant focus:ring-0 cursor-pointer py-2 pl-2 pr-8 appearance-none">
+                <option value="All" <?= (($_GET['status'] ?? '') === 'All' || empty($_GET['status'])) ? 'selected' : '' ?>>Status: All</option>
+                <option value="Active" <?= ($_GET['status'] ?? '') === 'Active' ? 'selected' : '' ?>>Active</option>
+                <option value="Inactive" <?= ($_GET['status'] ?? '') === 'Inactive' ? 'selected' : '' ?>>Inactive</option>
+                <option value="Out of Stock" <?= ($_GET['status'] ?? '') === 'Out of Stock' ? 'selected' : '' ?>>Out of Stock</option>
+            </select>
+
+        </div>
+    </form>
     <button class="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-xl font-headline-sm hover:opacity-90 active:scale-95 transition-all card-shadow" onclick="openModal('addProductModal')">
         <span class="material-symbols-outlined text-[20px]">add_circle</span>
         Add Product
@@ -43,6 +68,7 @@ try {
                     <th class="px-6 py-5 font-semibold">Category</th>
                     <th class="px-6 py-5 font-semibold">UOM</th>
                     <th class="px-6 py-5 font-semibold">Quantity</th>
+                    <th class="px-6 py-5 font-semibold">Status</th>
                     <th class="px-6 py-5 font-semibold text-right">Actions</th>
                 </tr>
             </thead>
@@ -57,7 +83,7 @@ try {
                             <td class="px-6 py-5">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-lg flex-shrink-0 transition-transform group-hover:scale-105">
-                                        <?= strtoupper(substr($product['name'], 0, 2)) ?>
+                                        <?= strtoupper(substr($product['name'], 0, 3)) ?>
                                     </div>
                                     <div>
                                         <div class="font-headline-sm text-on-surface"><?= htmlspecialchars($product['name']) ?></div>
@@ -71,6 +97,12 @@ try {
                             </td>
                             <td class="px-6 py-5 text-on-surface-variant"><?= htmlspecialchars($product['unit_of_measure']) ?></td>
                             <td class="px-6 py-5 font-data-mono text-on-surface-variant"><?= htmlspecialchars($product['quantity']) ?></td>
+                            <td class="px-6 py-5">
+                                <span class="px-3 py-1 bg-surface-container-high rounded-full font-label-md text-on-surface">
+                                    <span class="inline-block w-2 h-2 rounded-full mr-1 <?= ($product['status'] ?? 'Active') === 'Active' ? 'bg-primary' : 'bg-error' ?>"></span>
+                                    <?= htmlspecialchars($product['status'] ?? 'Active') ?>
+                                </span>
+                            </td>
                             <td class="px-6 py-5 text-right">
                                 <div class="flex justify-end gap-2">
                                     <button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all" onclick="openEditModal(<?= htmlspecialchars(json_encode($product)) ?>)">
@@ -130,9 +162,19 @@ try {
                             <option>Kilogram</option>
                         </select>
                     </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Quantity</label>
                         <input type="number" name="quantity" required value="0" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Status</label>
+                        <select name="status" required class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Out of Stock">Out of Stock</option>
+                        </select>
                     </div>
                 </div>
 
@@ -191,38 +233,48 @@ try {
                             <option>Kilogram</option>
                         </select>
                     </div>
-                    <div class="space-y-2">
-                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Quantity</label>
-                        <input type="number" name="quantity" id="edit_quantity" required class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Quantity</label>
+                            <input type="number" name="quantity" id="edit_quantity" required class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Status</label>
+                            <select name="status" id="edit_status" required class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md focus:ring-2 focus:ring-primary transition-all">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="space-y-2">
-                    <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Description</label>
-                    <textarea name="description" id="edit_description" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all"></textarea>
-                </div>
+                    <div class="space-y-2">
+                        <label class="font-label-md text-on-surface-variant uppercase tracking-wider">Description</label>
+                        <textarea name="description" id="edit_description" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-body-md h-24 focus:ring-2 focus:ring-primary transition-all"></textarea>
+                    </div>
 
-                <div class="flex gap-4 pt-4">
-                    <button type="button" class="flex-1 py-4 rounded-full bg-surface-container-low text-on-surface-variant font-bold hover:bg-surface-container-high transition-all" onclick="closeModal('editProductModal')">Cancel</button>
-                    <button type="submit" class="flex-1 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Update Product</button>
-                </div>
+                    <div class="flex flex-col gap-4 pt-4">
+                        <button type="submit" class="w-full py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Update Product</button>
+                        <button type="button" class="w-full py-4 rounded-full bg-surface-container-low text-on-surface-variant font-bold hover:bg-surface-container-high transition-all" onclick="closeModal('editProductModal')">Cancel</button>
+                    </div>
             </form>
         </div>
     </div>
 </div>
 
 <script>
-function openEditModal(product) {
-    document.getElementById('edit_product_id').value = product.id;
-    document.getElementById('edit_product_name').value = product.name;
-    document.getElementById('edit_sku').value = product.sku;
-    document.getElementById('edit_category').value = product.category;
-    document.getElementById('edit_uom').value = product.unit_of_measure;
-    document.getElementById('edit_quantity').value = product.quantity;
-    document.getElementById('edit_description').value = product.description;
-    
-    openModal('editProductModal');
-}
+    function openEditModal(product) {
+        document.getElementById('edit_product_id').value = product.id;
+        document.getElementById('edit_product_name').value = product.name;
+        document.getElementById('edit_sku').value = product.sku;
+        document.getElementById('edit_category').value = product.category;
+        document.getElementById('edit_uom').value = product.unit_of_measure;
+        document.getElementById('edit_quantity').value = product.quantity;
+        document.getElementById('edit_status').value = product.status || 'Active';
+        document.getElementById('edit_description').value = product.description;
+
+        openModal('editProductModal');
+    }
 </script>
 
 <?php include 'includes/footer.php'; ?>
